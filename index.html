@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        background: #f77d03;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+      .calc-text {
+        margin-bottom: 20px;
+      }
+      #user-input {
+        font-size: 2rem;
+        background: #d4d3d3;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: right;
+        border: 3px solid #ccc;
+      }
+      .calc-keys {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      button {
+        font-size: 1.5rem;
+        padding: 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      .numbers {
+        background-color: #0000002e;
+      }
+      .numbers:hover {
+        background-color: #d6d6d616;
+      }
+      .operations {
+        background-color: #ff9f43;
+        color: white;
+      }
+      .operations:hover {
+        background-color: #e68a35;
+      }
+      .key-zero {
+        grid-column: span 2;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Container here -->
+    <div class="container">
+      <div class="calc-text">
+        <p name="user-input" id="user-input">0</p>
+      </div>
+      <div class="calc-keys">
+        <button type="button" class="key-others operations" onclick="clearDisplay()">AC</button>
+        <button type="button" class="key-others operations" onclick="deleteLast()">DEL</button>
+        <button type="button" class="key-others operations" onclick="appendValue('%')">%</button>
+        <button type="button" class="key-operate operations" onclick="appendValue('/')">/</button>
+
+        <button type="button" class="numbers" onclick="appendValue('7')">7</button>
+        <button type="button" class="numbers" onclick="appendValue('8')">8</button>
+        <button type="button" class="numbers" onclick="appendValue('9')">9</button>
+        <button type="button" class="key-operate operations" onclick="appendValue('*')">*</button>
+        <button type="button" class="numbers" onclick="appendValue('4')">4</button>
+        <button type="button" class="numbers" onclick="appendValue('5')">5</button>
+        <button type="button" class="numbers" onclick="appendValue('6')">6</button>
+        <button type="button" class="key-operate operations" onclick="appendValue('-')">-</button>
+        <button type="button" class="numbers" onclick="appendValue('1')">1</button>
+        <button type="button" class="numbers" onclick="appendValue('2')">2</button>
+        <button type="button" class="numbers" onclick="appendValue('3')">3</button>
+        <button type="button" class="key-operate operations" onclick="appendValue('+')">+</button>
+        <button type="button" class="key-zero numbers" onclick="appendValue('0')">0</button>
+        <button type="button" class="numbers" onclick="appendValue('.')">.</button>
+        <button type="button" class="key-operate operations" onclick="calculateResult()">=</button>
+      </div>
+    </div>
+    <script>
+      function appendValue(value) {
+        const input = document.getElementById('user-input');
+        if (input.innerText === '0') {
+          input.innerText = value;
+        } else {
+          input.innerText += value;
+        }
+      }
+
+      function clearDisplay() {
+        document.getElementById('user-input').innerText = '0';
+      }
+
+      function deleteLast() {
+        const input = document.getElementById('user-input');
+        input.innerText = input.innerText.slice(0, -1) || '0';
+      }
+
+      function calculateResult() {
+        const input = document.getElementById('user-input');
+        try {
+          input.innerText = eval(input.innerText);
+        } catch {
+          input.innerText = 'Error';
+        }
+      }
+    </script>
+  </body>
+</html>
